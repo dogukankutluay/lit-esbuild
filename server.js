@@ -16,5 +16,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Web sunucusu başlatıldı. http://localhost:${port}`);
+  console.log(`Web server started. http://localhost:${port}`);
 });
