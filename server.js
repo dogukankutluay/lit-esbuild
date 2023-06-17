@@ -1,6 +1,7 @@
 import path from "path";
 import express from "express";
 import { fileURLToPath } from "url";
+import { exec } from "child_process";
 
 const app = express();
 const port = 8000;
@@ -8,7 +9,6 @@ const port = 8000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-console.log(path.join(__dirname, "dist"));
 app.use(express.static(path.join(__dirname, "dist")));
 
 app.get("/", (req, res) => {
@@ -16,5 +16,15 @@ app.get("/", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Web server started. http://localhost:${port}`);
+  const host = `http://localhost:${port}`;
+
+  const getCommand = () => {
+    const platform = process.platform;
+    if (platform === "win32") return "start";
+    else if (platform === "linux") return "xdg-open";
+    else if (platform === "darwin") return "open";
+  };
+  exec(`${getCommand()} ${host}`);
+
+  console.log(`Web server started. ${host}`);
 });
