@@ -25,7 +25,7 @@ app.listen(port, () => {
     else if (platform === "darwin") return "open";
   };
   exec(`${getCommand()} ${host}`, (error) => {
-    console.error("Error", error);
+    if (error) console.error("Error", error);
   });
 
   console.log(`Web server started. ${host}`);
