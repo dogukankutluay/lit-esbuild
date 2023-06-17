@@ -24,7 +24,9 @@ app.listen(port, () => {
     else if (platform === "linux") return "xdg-open";
     else if (platform === "darwin") return "open";
   };
-  exec(`${getCommand()} ${host}`);
+  exec(`${getCommand()} ${host}`, (error) => {
+    console.error("Error", error);
+  });
 
   console.log(`Web server started. ${host}`);
 });
